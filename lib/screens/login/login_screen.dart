@@ -24,11 +24,23 @@ class LoginScreen extends StatelessWidget {
                         children: [
                           Text(
                             '欢迎登录',
-                            style: Theme.of(context).textTheme.headline6,
+                            style: TextStyle(
+                              color: kPrimaryColorLight,
+                              fontSize: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .fontSize,
+                            ),
                           ),
                           Text(
                             '武汉市某某人名医院医废通',
-                            style: Theme.of(context).textTheme.headline5,
+                            style: TextStyle(
+                              color: kPrimaryColorLight,
+                              fontSize: Theme.of(context)
+                                  .textTheme
+                                  .headline5
+                                  .fontSize,
+                            ),
                           )
                         ],
                       ),
@@ -65,9 +77,7 @@ class Background extends StatelessWidget {
       height: double.infinity,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/bg.png'),
-          fit: BoxFit.fitWidth
-        ),
+            image: AssetImage('assets/images/bg.png'), fit: BoxFit.fitWidth),
       ),
       child: this.child,
     );

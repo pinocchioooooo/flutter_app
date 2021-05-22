@@ -14,11 +14,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: kPrimaryColor,
         accentColor: kPrimaryColorLight,
-        // typographic
-        textTheme: const TextTheme(
-          headline5: TextStyle(color: kPrimaryColorLight),
-          headline6: TextStyle(color: kPrimaryColorLight),
-        )
       ),
       home: LoginScreen(),
     );
