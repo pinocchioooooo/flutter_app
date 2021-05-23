@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/constants.dart';
@@ -25,27 +23,21 @@ class LoginScreen extends StatelessWidget {
                         children: [
                           Text(
                             '欢迎登录',
-                            style: TextStyle(
-                              color: kPrimaryColorLight,
-                              fontSize: Theme.of(context)
-                                  .textTheme
-                                  .headline6
-                                  .fontSize,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6
+                                .copyWith(color: kPrimaryColorLight),
                           ),
                           Text(
                             '武汉市某某人名医院医废通',
-                            style: TextStyle(
-                              color: kPrimaryColorLight,
-                              fontSize: Theme.of(context)
-                                  .textTheme
-                                  .headline5
-                                  .fontSize,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6
+                                .copyWith(color: kPrimaryColorLight),
                           )
                         ],
                       ),
-                      LoginArea(),
+                      FormArea(),
                     ],
                   ),
                   Padding(
@@ -85,7 +77,23 @@ class Background extends StatelessWidget {
   }
 }
 
-class LoginArea extends StatelessWidget {
+class FormArea extends StatefulWidget {
+  @override
+  _FormAreaState createState() => _FormAreaState();
+}
+
+class _FormAreaState extends State<FormArea> {
+  final _formKey = GlobalKey<FormState>();
+  String userName = '';
+  String password = '';
+
+  void submit() {
+    var form = _formKey.currentState;
+    if (form.validate()) {
+      print("验证成功");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -98,45 +106,58 @@ class LoginArea extends StatelessWidget {
         ),
         color: Color(0xccffffff),
       ),
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: 50,
-            child: TextField(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            TextFormField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.people),
                 labelText: '用户名',
-                errorText: null,
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return '请输入用户名';
+                }
+                return null;
+              },
+              onSaved: (userName) {
+                userName = userName;
+              },
             ),
-          ),
-          SizedBox(height: kDefaultSpacing),
-          Container(
-            height: 50,
-            child: TextField(
+            SizedBox(height: kDefaultSpacing),
+            TextFormField(
               obscureText: true,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.lock_outline),
                 labelText: '用户密码',
-                errorText: null,
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return '请输入用户密码';
+                }
+                return null;
+              },
+              onSaved: (userName) {
+                userName = userName;
+              },
             ),
-          ),
-          SizedBox(height: kDefaultSpacing),
-          MaterialButton(
-            child: Text("登 录"),
-            minWidth: double.infinity,
-            height: 40,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(fullSize),
+            SizedBox(height: kDefaultSpacing),
+            MaterialButton(
+              child: Text("登 录"),
+              minWidth: double.infinity,
+              height: 40,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(fullSize),
+              ),
+              textColor: Colors.white,
+              color: Theme.of(context).primaryColor,
+              onPressed: submit,
             ),
-            textColor: Colors.white,
-            color: Theme.of(context).primaryColor,
-            onPressed: () {},
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
